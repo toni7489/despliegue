@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Selecciona y personaliza colores fácilmente con nuestra herramienta Color Picker. Explora paletas, copia códigos HEX, RGB y más para tus proyectos de diseño y desarrollo web.">
+    <title>Selector de Color Incrustado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/colorpicker.css') }}">
+   
+  
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+   
+</head>
+<body>
+    
+    <!-- Menú de Navegación -->
+    <nav class="navbar">
+        <div class="logo">Selector de color</div>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu">
+            <a href="/">Inicio</a>
+            <a href="/acortador">Acortador URLS</a>
+            <a href="/password">Generador de Contraseñas</a>
+            <a href="/colorpicker">Selector de color</a>
+            <a href="/qr">Generador QR</a>
+        </div>
+    </nav>
+    
+       <!-- Espacios para imagen y contenido -->
+       <div class="spacer"></div>
+       <img src="{{ url_for('static', filename='images/selector_color.jpg') }}" alt="Cabecera" class="responsive-image">
+       <div class="image-spacer"></div>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <h1 class="title">Selecciona un color con el selector flotante</h1>
+        <p>Pulsa en el recuadro y un selecciona un color en la paleta flotante. Después solo tienes ue copiar el código del color</p>
+
+      
+        <!-- Selector de color incrustado -->
+        <input type="color" id="color-picker">
+
+        <!-- Cuadro que muestra el color seleccionado -->
+        <div id="color-display"></div>
+        
+        <!-- Muestra el código en Hex y RGB -->
+        <div class="color-info">
+            <div id="hex-code">#000000</div>
+            <div id="rgb-code">rgb(0, 0, 0)</div>
+        </div>
+    </div>
+
+    <script>
+        // Función para convertir el valor hexadecimal a RGB
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            let r = parseInt(hex.substring(0, 2), 16);
+            let g = parseInt(hex.substring(2, 4), 16);
+            let b = parseInt(hex.substring(4, 6), 16);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // Obtener el selector de color y los elementos de visualización
+        const colorPicker = document.getElementById('color-picker');
+        const colorDisplay = document.getElementById('color-display');
+        const hexCode = document.getElementById('hex-code');
+        const rgbCode = document.getElementById('rgb-code');
+
+        // Evento para el cambio de color
+        colorPicker.addEventListener('input', function() {
+            const selectedColor = colorPicker.value;
+            colorDisplay.style.backgroundColor = selectedColor; // Mostrar el color
+            hexCode.textContent = selectedColor; // Mostrar el código hexadecimal
+            rgbCode.textContent = hexToRgb(selectedColor); // Mostrar el código RGB
+        });
+    </script>
+<!-- JavaScript -->
+<script src="static/script.js"></script>
+  
+</body>
+</html>
